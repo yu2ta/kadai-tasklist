@@ -38,6 +38,7 @@ public class UpdateServlet extends HttpServlet {
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             t.setUpdated_at(currentTime); // 更新日時のみ上書き
 
+            //バリデーション
             List<String> errors = TaskValidator.validate(t);
             if (errors.size() > 0) {
                 em.close();
@@ -46,7 +47,7 @@ public class UpdateServlet extends HttpServlet {
                 request.setAttribute("task", t);
                 request.setAttribute("errors", errors);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/new.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/edit.jsp");
                 rd.forward(request, response);
 
             } else {
